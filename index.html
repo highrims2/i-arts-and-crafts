@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Arts and Crafts — Original Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #17191b;
+    --paper: #f6f4ef;
+    --wall: #eae6dc;
+    --gold: #b8902f;
+    --gold-dim: #9c7c2c;
+    --line: #d8d2c2;
+    --muted: #6f6a5f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  /* Header */
+  header {
+    padding: 28px 0 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  header .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    margin-left: 28px;
+    letter-spacing: 0.3px;
+  }
+  nav a:hover { color: var(--ink); }
+
+  /* Hero */
+  .hero {
+    padding: 90px 0 70px;
+    text-align: center;
+  }
+  .hero .eyebrow {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(38px, 6vw, 64px);
+    font-weight: 500;
+    line-height: 1.08;
+    max-width: 780px;
+    margin: 0 auto 22px;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 17px;
+    max-width: 480px;
+    margin: 0 auto 34px;
+    line-height: 1.6;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 13px 28px;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn:hover { background: var(--gold-dim); }
+  .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  /* Gallery */
+  .gallery-section { padding: 40px 0 100px; }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 16px;
+    margin-bottom: 44px;
+  }
+  .section-head h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 500;
+  }
+  .section-head span {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 44px 36px;
+  }
+  @media (max-width: 800px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 540px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .piece { display: flex; flex-direction: column; }
+
+  .canvas {
+    aspect-ratio: 4 / 5;
+    background: var(--wall);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+  .canvas .art {
+    position: absolute;
+    inset: 14%;
+  }
+  .canvas .frame-note {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: rgba(246,244,239,0.85);
+    padding: 3px 7px;
+  }
+
+  /* placeholder abstract art variations, pure CSS */
+  .art-1 { background: linear-gradient(135deg, #b8902f 0%, #17191b 55%, #6f6a5f 100%); }
+  .art-2 {
+    background: radial-gradient(circle at 30% 30%, #d8c9a3 0%, #17191b 70%);
+  }
+  .art-3 {
+    background: repeating-linear-gradient(115deg, #17191b 0 22px, #b8902f 22px 26px, #eae6dc 26px 48px);
+  }
+  .art-4 { background: linear-gradient(200deg, #6f6a5f 0%, #eae6dc 40%, #b8902f 100%); }
+  .art-5 {
+    background: radial-gradient(ellipse at 70% 60%, #b8902f 0%, transparent 55%),
+                radial-gradient(ellipse at 30% 30%, #17191b 0%, transparent 60%),
+                #eae6dc;
+  }
+  .art-6 { background: conic-gradient(from 90deg, #17191b, #b8902f, #eae6dc, #6f6a5f, #17191b); }
+
+  .label {
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .label .info h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .label .info p {
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .label .price {
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+
+  .buy-btn {
+    margin-top: 12px;
+    width: 100%;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 10px 0;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .buy-btn:hover { background: var(--ink); color: var(--paper); }
+  .buy-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  /* Footer note */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 28px 0 50px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12.5px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">I Arts and Crafts</div>
+    <nav>
+      <a href="#gallery">Gallery</a>
+      <a href="#">Commissions</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Original Paintings · Prints · Commissions</div>
+    <h1>Work made by hand, sold with a click.</h1>
+    <p>Each piece below is a placeholder — swap in photos of your real paintings and this becomes your storefront.</p>
+    <a class="btn" href="#gallery">View the Gallery</a>
+  </div>
+</section>
+
+<section class="gallery-section" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Available Now</h2>
+      <span>6 pieces</span>
+    </div>
+
+    <div class="grid">
+
+      <div class="piece">
+        <div class="canvas"><div class="art art-1"></div><span class="frame-note">Oil on canvas</span></div>
+        <div class="label">
+          <div class="info"><h3>Untitled No. 1</h3><p>24 × 30 in</p></div>
+          <div class="price">$450</div>
+        </div>
+        <button class="buy-btn">Buy Now</button>
+      </div>
+
+      <div class="piece">
+        <div class="canvas"><div class="art art-2"></div><span class="frame-note">Acrylic</span></div>
+        <div class="label">
+          <div class="info"><h3>Quiet Hour</h3><p>18 × 24 in</p></div>
+          <div class="price">$320</div>
+        </div>
+        <button class="buy-btn">Buy Now</button>
+      </div>
+
+      <div class="piece">
+        <div class="canvas"><div class="art art-3"></div><span class="frame-note">Mixed media</span></div>
+        <div class="label">
+          <div class="info"><h3>Fault Lines</h3><p>20 × 20 in</p></div>
+          <div class="price">$280</div>
+        </div>
+        <button class="buy-btn">Buy Now</button>
+      </div>
+
+      <div class="piece">
+        <div class="canvas"><div class="art art-4"></div><span class="frame-note">Watercolor</span></div>
+        <div class="label">
+          <div class="info"><h3>Low Tide</h3><p>12 × 16 in</p></div>
+          <div class="price">$150</div>
+        </div>
+        <button class="buy-btn">Buy Now</button>
+      </div>
+
+      <div class="piece">
+        <div class="canvas"><div class="art art-5"></div><span class="frame-note">Oil on panel</span></div>
+        <div class="label">
+          <div class="info"><h3>Field Study</h3><p>16 × 20 in</p></div>
+          <div class="price">$300</div>
+        </div>
+        <button class="buy-btn">Buy Now</button>
+      </div>
+
+      <div class="piece">
+        <div class="canvas"><div class="art art-6"></div><span class="frame-note">Print, edition of 25</span></div>
+        <div class="label">
+          <div class="info"><h3>Spiral (Print)</h3><p>11 × 14 in</p></div>
+          <div class="price">$65</div>
+        </div>
+        <button class="buy-btn">Buy Now</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  Sample layout — connect each "Buy Now" button to a Stripe Payment Link when you're ready to go live.
+</footer>
+
+</body>
+</html>
