@@ -19,6 +19,8 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html { scroll-behavior: smooth; }
+
   body {
     background: var(--paper);
     color: var(--ink);
@@ -139,6 +141,10 @@
   .canvas .art {
     position: absolute;
     inset: 14%;
+    transition: transform 0.4s ease;
+  }
+  .canvas:hover .art {
+    transform: scale(1.06);
   }
   .canvas .frame-note {
     position: absolute;
@@ -221,13 +227,76 @@
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
   }
+
+  /* Behind the Piece modal */
+  .canvas { cursor: pointer; }
+  .story-hint {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: rgba(246,244,239,0.85);
+    padding: 3px 7px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .canvas:hover .story-hint { opacity: 1; }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(23,25,27,0.7);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--paper);
+    max-width: 440px;
+    width: 100%;
+    padding: 32px;
+    position: relative;
+  }
+  .modal-box .art-preview {
+    aspect-ratio: 16 / 9;
+    margin-bottom: 20px;
+  }
+  .modal-box h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .modal-box p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--muted);
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--ink); }
 </style>
 </head>
 <body>
 
 <header>
   <div class="wrap">
-    <div class="brand">I Arts and Crafts</div>
+    <a class="brand" href="#home" style="color:inherit;text-decoration:none;">I Arts and Crafts</a>
     <nav>
       <a href="#gallery">Gallery</a>
       <a href="#">Commissions</a>
@@ -236,7 +305,7 @@
   </div>
 </header>
 
-<section class="hero">
+<section class="hero" id="home">
   <div class="wrap">
     <div class="eyebrow">Original Paintings · Prints · Commissions</div>
     <h1>Work made by hand, sold with a click.</h1>
@@ -255,7 +324,7 @@
     <div class="grid">
 
       <div class="piece">
-        <div class="canvas"><div class="art art-1"></div><span class="frame-note">Oil on canvas</span></div>
+        <div class="canvas" onclick="openStory('art-1','Untitled No. 1','Oil on canvas, 24 × 30 in','This piece started as a quick sketch during a slow afternoon and grew from there — the kind of painting that tells you what it wants to be as you go.')"><div class="art art-1"></div><span class="frame-note">Oil on canvas</span><span class="story-hint">Behind the piece</span></div>
         <div class="label">
           <div class="info"><h3>Untitled No. 1</h3><p>24 × 30 in</p></div>
           <div class="price">$450</div>
@@ -264,7 +333,7 @@
       </div>
 
       <div class="piece">
-        <div class="canvas"><div class="art art-2"></div><span class="frame-note">Acrylic</span></div>
+        <div class="canvas" onclick="openStory('art-2','Quiet Hour','Acrylic, 18 × 24 in','Made late one night when the house finally went quiet — this one is about the stillness that shows up right before you fall asleep.')"><div class="art art-2"></div><span class="frame-note">Acrylic</span><span class="story-hint">Behind the piece</span></div>
         <div class="label">
           <div class="info"><h3>Quiet Hour</h3><p>18 × 24 in</p></div>
           <div class="price">$320</div>
@@ -273,7 +342,7 @@
       </div>
 
       <div class="piece">
-        <div class="canvas"><div class="art art-3"></div><span class="frame-note">Mixed media</span></div>
+        <div class="canvas" onclick="openStory('art-3','Fault Lines','Mixed media, 20 × 20 in','Built up in layers, then scraped back down — a piece about things breaking apart and holding together at the same time.')"><div class="art art-3"></div><span class="frame-note">Mixed media</span><span class="story-hint">Behind the piece</span></div>
         <div class="label">
           <div class="info"><h3>Fault Lines</h3><p>20 × 20 in</p></div>
           <div class="price">$280</div>
@@ -282,7 +351,7 @@
       </div>
 
       <div class="piece">
-        <div class="canvas"><div class="art art-4"></div><span class="frame-note">Watercolor</span></div>
+        <div class="canvas" onclick="openStory('art-4','Low Tide','Watercolor, 12 × 16 in','Painted from memory after a walk along the shore — trying to capture that in-between moment when the water pulls back.')"><div class="art art-4"></div><span class="frame-note">Watercolor</span><span class="story-hint">Behind the piece</span></div>
         <div class="label">
           <div class="info"><h3>Low Tide</h3><p>12 × 16 in</p></div>
           <div class="price">$150</div>
@@ -291,7 +360,7 @@
       </div>
 
       <div class="piece">
-        <div class="canvas"><div class="art art-5"></div><span class="frame-note">Oil on panel</span></div>
+        <div class="canvas" onclick="openStory('art-5','Field Study','Oil on panel, 16 × 20 in','A study done outdoors in one sitting, chasing the light before it changed — quick, direct, and a little unfinished on purpose.')"><div class="art art-5"></div><span class="frame-note">Oil on panel</span><span class="story-hint">Behind the piece</span></div>
         <div class="label">
           <div class="info"><h3>Field Study</h3><p>16 × 20 in</p></div>
           <div class="price">$300</div>
@@ -300,7 +369,7 @@
       </div>
 
       <div class="piece">
-        <div class="canvas"><div class="art art-6"></div><span class="frame-note">Print, edition of 25</span></div>
+        <div class="canvas" onclick="openStory('art-6','Spiral (Print)','Print, edition of 25, 11 × 14 in','A giclée print of an original piece — signed and numbered, so every copy is still one of a limited set.')"><div class="art art-6"></div><span class="frame-note">Print, edition of 25</span><span class="story-hint">Behind the piece</span></div>
         <div class="label">
           <div class="info"><h3>Spiral (Print)</h3><p>11 × 14 in</p></div>
           <div class="price">$65</div>
@@ -315,6 +384,39 @@
 <footer>
   Sample layout — connect each "Buy Now" button to a Stripe Payment Link when you're ready to go live.
 </footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeStoryOnOverlay(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeStory()" aria-label="Close">&times;</button>
+    <div class="art-preview" id="modalArt"></div>
+    <h3 id="modalTitle"></h3>
+    <p id="modalMeta" style="margin-bottom:10px;font-size:12.5px;color:var(--muted);"></p>
+    <p id="modalDesc"></p>
+  </div>
+</div>
+
+<script>
+  function openStory(artClass, title, meta, desc) {
+    document.getElementById('modalArt').className = 'art-preview ' + artClass;
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalMeta').textContent = meta;
+    document.getElementById('modalDesc').textContent = desc;
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+  function closeStory() {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+  function closeStoryOnOverlay(e) {
+    if (e.target.id === 'modalOverlay') closeStory();
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeStory();
+  });
+  // Prevent Buy Now clicks from also opening the story modal
+  document.querySelectorAll('.buy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) { e.stopPropagation(); });
+  });
+</script>
 
 </body>
 </html>
